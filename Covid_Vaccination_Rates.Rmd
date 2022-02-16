@@ -8,10 +8,11 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library('tidyverse') ; library('modeldata')
 ```
 
 
 ```{r load data, include = FALSE}
-Vaccination.Base...Sheet1 <- read.csv("D:/download/Vaccination-Base - Sheet1.csv", row.names=NULL)
+vac_base <- read.csv("D:/download/Vaccination-Base - Sheet1.csv", row.names=NULL)
 ```
 
