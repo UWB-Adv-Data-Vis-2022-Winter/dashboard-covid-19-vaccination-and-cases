@@ -1,5 +1,5 @@
 ---
-title: "Covid-19_Vaccination_Rates"
+title: "Covid-19 Cases and Vaccination Rates"
 author: "Kongtao Chen, Eric Shin, Laith Darwish"
 date: "2/16/2022"
 output: html_document
