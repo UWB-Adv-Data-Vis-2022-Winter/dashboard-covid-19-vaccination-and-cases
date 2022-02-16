@@ -13,6 +13,6 @@ library('tidyverse') ; library('modeldata')
 
 
 ```{r load data, include = FALSE}
-vac_base <- read.csv("D:/download/Vaccination-Base - Sheet1.csv", row.names=NULL)
+vac_base <- read.csv("Vaccination-Base - Sheet1.csv", row.names=NULL)
 ```
 
