@@ -8,28 +8,51 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library('tidyverse') ; library('modeldata') ; library('ggplot2')
-library('jsonlite')
-library('rgdal')
-library('sf')
-library('extrafont')
-library('ggplot2')
-library('ggspatial')
-library('patchwork')
-library('scico')
-library('vapoRwave')
-library('dplyr')
+library('tidyverse') ; library('modeldata') ; library('ggplot2');
+library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
+library('patchwork') ; library('scico') ; library('dplyr');
+#library(urbnmapr)
 ```
 
+## Introduction
+
+This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
 
 ```{r load data, include = FALSE}
 vac_base <- read.csv("Vaccination-Base - Sheet1.csv", row.names=NULL)
+#vac_rates <- vac_base$Admin_Per_100K
+#vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
+vac_rates <- vac_base %>% 
+  select(State.Abbreviations, Location, Admin_Per_100K)
 ```
 
+## What is that sound?
+
+In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
+
+```{r summary, echo = FALSE}
+summary(vac_base)
+``` 
 
 ```{r map, include = FALSE}
+#Dont run this trunk
+spatial_data <- left_join(vac_rates,
+                          get_urbn_map(map = "states", sf = TRUE),
+                          by = c("Location","state_name"))
+
+Map <- ggplot() +
+  geom_sf(spatial_data,
+          mapping = aes(fill = VARIABLE, geometry = geometry), stat = "sf",
+
+
 state_capitals <- fromJSON("https://raw.githubusercontent.com/vega/vega/master/docs/data/us-state-capitals.json")
 state_capitals_sf <- st_as_sf(state_capitals, coords = c("lon", "lat"), crs = 4326)
-usa_1 <- ggplot(data = vac_base) + geom_sf()
+usa_1 <- ggplot(data = vac_rates) + geom_sf()
+ggplot(data = vac_rates) +
+  annotation_map_tile("stamenwatercolor") +
+  geom_sf(aes(fill = Admin_Per_100K), alpha = 0.8) +
+  annotation_scale() +
+  scale_fill_viridis_c() +
+  ggtitle(label = "The Honey crisis of 2008", subtitle = "Price per lb")
 ```
 
