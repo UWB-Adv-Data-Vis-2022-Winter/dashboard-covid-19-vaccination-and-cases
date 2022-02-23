@@ -67,3 +67,13 @@ ggplot(data = vac_rates) +
 ```{r scatterplot, echo = FALSE}
 
 ```
+
+```{r bar graph, echo = FALSE}
+
+g <- ggplot(data = vac_base)
+g + geom_col(aes(x = vac_rates , y = state.abb, fill = state.abb )) +
+  ggtitle("Vaccination Rates of each U.S. State", subtitle = "Data on each U.S. state") +
+  theme(legend.position="none")
+
+
+```
