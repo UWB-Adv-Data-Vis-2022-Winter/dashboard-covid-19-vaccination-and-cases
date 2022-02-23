@@ -44,6 +44,15 @@ summary(vac_base)
 ``` 
 
 ```{r map, include = FALSE} 
+
+usa <- here(
+  "static", "data", "census_bureau",
+  "cb_2013_us_state_20m", "cb_2013_us_state_20m.shp"
+) %>%
+  st_read()
+```
+
+```{r}
 #Dont run this trunk
 spatial_data <- left_join(vac_rates,
                           get_urbn_map(map = "states", sf = TRUE),
