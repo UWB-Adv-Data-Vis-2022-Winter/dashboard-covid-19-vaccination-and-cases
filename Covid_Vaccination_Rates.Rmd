@@ -24,7 +24,8 @@ vac_base <- read.csv("Vaccination-Base - Sheet1.csv", row.names=NULL)
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 vac_rates <- vac_base %>% 
   select(State.Abbreviations, Location, Admin_Per_100K)
-total_cases <- vac_base$Total.cases
+total_cases <- vac_base %>% 
+  select(State.Abbreviations, Location, total_cases)
 ```
 
 ## What is that sound?
