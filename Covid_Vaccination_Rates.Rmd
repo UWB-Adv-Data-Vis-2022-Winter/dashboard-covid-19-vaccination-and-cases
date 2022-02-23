@@ -24,6 +24,7 @@ vac_base <- read.csv("Vaccination-Base - Sheet1.csv", row.names=NULL)
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 vac_rates <- vac_base %>% 
   select(State.Abbreviations, Location, Admin_Per_100K)
+total_cases <- vac_base$Total.cases
 ```
 
 ## What is that sound?
@@ -47,6 +48,8 @@ Map <- ggplot() +
 
 state_capitals <- fromJSON("https://raw.githubusercontent.com/vega/vega/master/docs/data/us-state-capitals.json")
 state_capitals_sf <- st_as_sf(state_capitals, coords = c("lon", "lat"), crs = 4326)
+
+
 usa_1 <- ggplot(data = vac_rates) + geom_sf()
 ggplot(data = vac_rates) +
   annotation_map_tile("stamenwatercolor") +
