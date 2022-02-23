@@ -76,6 +76,8 @@ ggplot(data = vac_rates) +
 ```
 
 ```{r bar graph, echo = FALSE}
+vac_base <- vac_rates %>%
+  group_by(state.abb) %>% 
 
 g <- ggplot(data = vac_base)
 g + geom_col(aes(x = vac_rates , y = state.abb, fill = state.abb )) +
