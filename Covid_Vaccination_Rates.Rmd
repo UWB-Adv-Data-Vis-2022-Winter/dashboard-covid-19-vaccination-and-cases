@@ -12,6 +12,13 @@ library('tidyverse') ; library('modeldata') ; library('ggplot2');
 library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
 library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
 #library(urbnmapr)
+library(tidyverse)
+library(sf)
+library(here)
+
+options(digits = 3)
+set.seed(1234)
+theme_set(theme_minimal())
 ```
 
 ## Introduction
