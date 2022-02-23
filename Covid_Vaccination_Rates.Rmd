@@ -56,3 +56,10 @@ ggplot(data = vac_rates) +
   ggtitle(label = "The Honey crisis of 2008", subtitle = "Price per lb")
 ```
 
+
+## Vaccination Rates vs Covid-19 cases
+
+
+```{r scatterplot, echo = FALSE}
+
+```
