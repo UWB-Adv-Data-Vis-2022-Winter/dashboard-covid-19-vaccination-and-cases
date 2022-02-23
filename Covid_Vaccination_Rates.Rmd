@@ -10,7 +10,7 @@ runtime: shiny
 knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse') ; library('modeldata') ; library('ggplot2');
 library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
-library('patchwork') ; library('scico') ; library('dplyr');
+library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
 #library(urbnmapr)
 ```
 
@@ -34,7 +34,7 @@ In this report, we examine the relationship between vaccine coverage and confirm
 summary(vac_base)
 ``` 
 
-```{r map, include = FALSE}
+```{r map, include = FALSE} 
 #Dont run this trunk
 spatial_data <- left_join(vac_rates,
                           get_urbn_map(map = "states", sf = TRUE),
