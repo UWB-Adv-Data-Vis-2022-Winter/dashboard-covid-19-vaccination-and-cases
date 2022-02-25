@@ -58,6 +58,11 @@ usa_sf()
 ggplot(data = usa_sf()) +
   geom_sf()
 
+usa_fb <- usa_sf() %>%
+  left_join(vac_rates, by = c("name" = "Location"))
+
+ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Admin_Per_100K))
 ```
 
 
