@@ -73,7 +73,7 @@ ggplot(data = usa_fb) +
 ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) +
   geom_point(mapping = aes(color = "black"))+
   geom_smooth() +
-ggtitle("Miles per gallon on the highway for vehicles with different size engines")
+ggtitle("Vaccination rates vs Covid-19 cases by state")
 ```
 
 ```{r bar graph, echo = FALSE}
