@@ -21,7 +21,7 @@ set.seed(1234)
 theme_set(theme_minimal())
 ```
 
-## Introduction
+## Introduction {.tabset}
 
 This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
 
@@ -35,7 +35,7 @@ total_cases <- vac_base %>%
   select(State_Abbreviations, Location, Total_Cases)
 ```
 
-## What is that sound?
+### What is that sound?
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
@@ -52,7 +52,7 @@ ggplot(data = usa_fb) +
 ```
 
 
-## Vaccination Rates vs Covid-19 cases
+### Vaccination Rates vs Covid-19 cases 
 
 ```{r scatterplot, echo = FALSE}
 ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) + 
@@ -60,6 +60,8 @@ ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) +
   geom_smooth() +
 ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
 ```
+
+### Vaccination Rates of Each U.S. State 
 
 ```{r bar graph, echo = FALSE}
 g <- ggplot(data = vac_rates)
