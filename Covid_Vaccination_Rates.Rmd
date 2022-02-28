@@ -64,8 +64,6 @@ ggtitle("Vaccination rates vs Covid-19 cases by state")
 ```{r bar graph, echo = FALSE}
 g <- ggplot(data = vac_rates)
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
-  ggtitle("Vaccination Rates of each U.S. State", subtitle = "Data on each U.S. state") +
+  ggtitle("Vaccination Rates of Each U.S. State", subtitle = "Data on Each U.S. state") +
   theme(legend.position="none")
-
-
 ```
