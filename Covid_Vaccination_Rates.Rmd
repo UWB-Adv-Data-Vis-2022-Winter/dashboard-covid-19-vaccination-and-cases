@@ -72,6 +72,8 @@ ggplot(data = vac_rates) +
 
 
 ```{r scatterplot, echo = FALSE}
+ggplot(data = vac_base) + 
+  geom_point(mapping = aes(x = vac_rates, y = total_cases, color = class))
 
 ```
 
