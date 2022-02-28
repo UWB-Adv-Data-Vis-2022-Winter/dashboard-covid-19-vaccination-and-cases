@@ -68,7 +68,6 @@ ggplot(data = usa_fb) +
 
 ## Vaccination Rates vs Covid-19 cases
 
-
 ```{r scatterplot, echo = FALSE}
 ggplot(data = rate_case, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) +
   geom_point(mapping = aes(color = "black"))+
@@ -77,11 +76,11 @@ ggtitle("Vaccination rates vs Covid-19 cases by state")
 ```
 
 ```{r bar graph, echo = FALSE}
-vac_base <- vac_rates %>%
-  group_by(state.abb) %>% 
+vac_rates <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K) %>% mutate(Admin_Per_100K = as.numeric(Admin_Per_100K))
 
-g <- ggplot(data = vac_base)
-g + geom_col(aes(x = vac_rates , y = state.abb, fill = state.abb )) +
+g <- ggplot(data = vac_rates)
+g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("Vaccination Rates of each U.S. State", subtitle = "Data on each U.S. state") +
   theme(legend.position="none")
 
