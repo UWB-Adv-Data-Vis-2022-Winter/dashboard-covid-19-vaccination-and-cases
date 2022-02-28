@@ -70,9 +70,10 @@ ggplot(data = usa_fb) +
 
 
 ```{r scatterplot, echo = FALSE}
-ggplot(data = vac_base) + 
-  geom_point(mapping = aes(x = vac_rates, y = total_cases, color = class))
-
+ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) +
+  geom_point(mapping = aes(color = "black"))+
+  geom_smooth() +
+ggtitle("Miles per gallon on the highway for vehicles with different size engines")
 ```
 
 ```{r bar graph, echo = FALSE}
