@@ -26,13 +26,13 @@ theme_set(theme_minimal())
 This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
 
 ```{r load data, include = FALSE}
-vac_base <- read.csv("Vaccination-Base - Sheet1.csv", row.names=NULL)
+vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 vac_rates <- vac_base %>% 
-  select(State.Abbreviations, Location, Admin_Per_100K)
+  select(State_Abbreviations, Location, Admin_Per_100K)
 total_cases <- vac_base %>% 
-  select(State.Abbreviations, Location, Total.cases)
+  select(State_Abbreviations, Location, Total_Cases)
 ```
 
 ## What is that sound?
