@@ -1,4 +1,4 @@
-State Abbreviations,Location,Total-cases,Admin_Per_100K,Admin_Per_100k_12Plus,Admin_Per_100k_18Plus,Admin_Per_100k_65Plus,PercentHighSchoolOrHigher,PercentBachelorsOrHigher,HouseholdIncome
+State_Abbreviations,Location,Total_Cases,Admin_Per_100K,Admin_Per_100k_12Plus,Admin_Per_100k_18Plus,Admin_Per_100k_65Plus,Percent_High_School_Or_Higher,Percent_Bachel_Or_Higher,Household_Income
 AK,Alaska,"226,276",146741,1037866,966131,210850,93,30,77640
 AL,Alabama,"1,263,796",122866,5928631,5637439,1820261,86,26,50536
 AR,Arkansas,"807,711",134155,3948968,3701338,1146728,87,23,47597
