@@ -11,10 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse') ; library('modeldata') ; library('ggplot2');
 library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
 library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
-#library(urbnmapr)
 library('here')
 library('maps')
 library('albersusa')
+#to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
 
 options(digits = 3)
 set.seed(1234)
@@ -39,25 +39,11 @@ total_cases <- vac_base %>%
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
-```{r summary, echo = FALSE}
-summary(vac_base)
-``` 
-
-```{r map, include = FALSE} 
+```{r map, echo = FALSE}
 usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>% 
   st_read()
-ggplot(data = usa) +
-  geom_sf()
-
 usa_48 <- usa %>%
     filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
-ggplot(data = usa_48) +
-  geom_sf()
-
-usa_sf()
-ggplot(data = usa_sf()) +
-  geom_sf()
-
 usa_fb <- usa_sf() %>%
   left_join(vac_rates, by = c("name" = "Location"))
 
@@ -78,8 +64,6 @@ ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
 ```{r bar graph, echo = FALSE}
 g <- ggplot(data = vac_rates)
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
-  ggtitle("Vaccination Rates of each U.S. State", subtitle = "Data on each U.S. state") +
+  ggtitle("Vaccination Rates of Each U.S. State", subtitle = "Data on Each U.S. state") +
   theme(legend.position="none")
-
-
 ```
