@@ -39,10 +39,6 @@ rate_case <- vac_base %>%
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
-```{r summary, echo = FALSE}
-summary(vac_base)
-``` 
-
 ```{r map, include = FALSE} 
 usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>% 
   st_read()
