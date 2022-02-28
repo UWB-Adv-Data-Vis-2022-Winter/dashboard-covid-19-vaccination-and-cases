@@ -11,10 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse') ; library('modeldata') ; library('ggplot2');
 library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
 library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
-#library(urbnmapr)
 library('here')
 library('maps')
 library('albersusa')
+#to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
 
 options(digits = 3)
 set.seed(1234)
