@@ -62,11 +62,8 @@ ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) +
 ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)") +
  xlab("Doses Administered Per 100K") +
   ylab("Total Covid-19 Cases") +
-
-
   #scale_y_continuous()+
 ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
-
 
 ```
 
@@ -77,16 +74,11 @@ ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
 g <- ggplot(data = head(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Highest States", subtitle = "Data on Each U.S. state") +
-  theme(legend.position="none") +
-  
+  theme(legend.position="none")
 
 g <- ggplot(data = tail(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. state") +
-
-  theme(legend.position="none") 
-
-
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000))
 
