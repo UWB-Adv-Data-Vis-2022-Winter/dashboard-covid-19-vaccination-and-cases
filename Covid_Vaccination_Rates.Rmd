@@ -72,17 +72,17 @@ ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
 ### Vaccination Rates of Each U.S. State 
 
 ```{r bar graph, echo = FALSE}
-g <- ggplot(data = head(rate_cases,5))
+g <- ggplot(data = rate_cases)
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("Vaccination Rates of Each U.S. State", subtitle = "Data on Each U.S. state") +
   theme(legend.position="none")
 
-g <- ggplot(data = tail(rate_cases,5))
+g <- ggplot(data = head(rate_cases,5))
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Highest States", subtitle = "Data on Each U.S. state") +
   theme(legend.position="none")
 
-g <- ggplot(data = vac_rates)
+g <- ggplot(data = head(rate_cases,5))
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. state") +
