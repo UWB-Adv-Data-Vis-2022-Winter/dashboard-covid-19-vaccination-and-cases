@@ -21,7 +21,7 @@ set.seed(1234)
 theme_set(theme_minimal())
 ```
 
-## Introduction
+## Introduction {.tabset}
 
 This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
 
@@ -30,12 +30,12 @@ vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 vac_rates <- vac_base %>% 
-  select(State_Abbreviations, Location, Admin_Per_100K)
-rate_case <- vac_base %>% 
-  select(State_Abbreviations, Location, Total_Cases, Admin_Per_100K)
+  select(State_Abbreviations, Location, Admin_Per_100K) %>% mutate(Admin_Per_100K = as.numeric(Admin_Per_100K))
+total_cases <- vac_base %>% 
+  select(State_Abbreviations, Location, Total_Cases)
 ```
 
-## What is that sound?
+### What is that sound?
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
@@ -53,14 +53,18 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
 
-## Vaccination Rates vs Covid-19 cases
+### Vaccination Rates vs Covid-19 cases 
 
 ```{r scatterplot, echo = FALSE}
-ggplot(data = rate_case, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) +
-  geom_point(mapping = aes(color = "black"))+
+ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) + 
+  geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
-ggtitle("Vaccination rates vs Covid-19 cases by state")
+ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
+
+
 ```
+
+### Vaccination Rates of Each U.S. State 
 
 ```{r bar graph, echo = FALSE}
 g <- ggplot(data = vac_rates)
