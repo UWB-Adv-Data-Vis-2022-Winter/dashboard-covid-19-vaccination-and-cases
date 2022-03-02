@@ -29,10 +29,8 @@ This R Markdown document demonstrates our abilities to use models for data analy
 vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
-vac_rates <- vac_base %>% 
-  select(State_Abbreviations, Location, Admin_Per_100K) %>% mutate(Admin_Per_100K = as.numeric(Admin_Per_100K))
-total_cases <- vac_base %>% 
-  select(State_Abbreviations, Location, Total_Cases)
+rate_cases <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases)
 ```
 
 ### What is that sound?
@@ -45,7 +43,7 @@ usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>%
 usa_48 <- usa %>%
     filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
 usa_fb <- usa_sf() %>%
-  left_join(vac_rates, by = c("name" = "Location"))
+  left_join(rate_cases, by = c("name" = "Location"))
 
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Admin_Per_100K)) +
@@ -56,18 +54,18 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ### Vaccination Rates vs Covid-19 cases 
 
 ```{r scatterplot, echo = FALSE}
-ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) + 
+ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
+  #scale_y_continuous()+
 ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
-
 
 ```
 
 ### Vaccination Rates of Each U.S. State 
 
 ```{r bar graph, echo = FALSE}
-g <- ggplot(data = vac_rates)
+g <- ggplot(data = rate_cases)
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("Vaccination Rates of Each U.S. State", subtitle = "Data on Each U.S. state") +
   theme(legend.position="none")
