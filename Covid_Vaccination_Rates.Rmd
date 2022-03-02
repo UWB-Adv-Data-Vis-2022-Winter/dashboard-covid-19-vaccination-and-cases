@@ -35,7 +35,7 @@ total_cases <- vac_base %>%
   select(State_Abbreviations, Location, Total_Cases)
 ```
 
-### What is that sound?
+### U.S. Covid-19 Vaccination rate
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
@@ -58,8 +58,9 @@ ggplot(data = usa_fb) +
 ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Total_Cases)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
-ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
-
+ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Total Covid-19 Cases")
 
 ```
 
