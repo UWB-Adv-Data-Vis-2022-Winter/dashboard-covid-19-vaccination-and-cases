@@ -14,7 +14,7 @@ library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboa
 library('here')
 library('maps')
 library('albersusa')
-#to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
+#in order to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
 
 options(digits = 3)
 set.seed(1234)
@@ -48,7 +48,8 @@ usa_fb <- usa_sf() %>%
   left_join(vac_rates, by = c("name" = "Location"))
 
 ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Admin_Per_100K))
+  geom_sf(aes(fill = Admin_Per_100K)) +
+scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
 
