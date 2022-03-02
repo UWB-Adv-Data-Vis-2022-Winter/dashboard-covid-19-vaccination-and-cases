@@ -82,8 +82,12 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 
 g <- ggplot(data = tail(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
-  
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. state") +
+
   theme(legend.position="none") 
+
+
+  theme(legend.position="none") +
+  scale_x_continuous(limits = c(0,220000))
 
 ```
