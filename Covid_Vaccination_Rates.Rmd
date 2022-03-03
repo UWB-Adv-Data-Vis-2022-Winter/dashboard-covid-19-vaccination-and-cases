@@ -83,3 +83,9 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
   scale_x_continuous(limits = c(0,220000))
 
 ```
+
+### Vaccination Rates vs Household Income
+
+```{r bar graph, echo = FALSE}
+
+```
