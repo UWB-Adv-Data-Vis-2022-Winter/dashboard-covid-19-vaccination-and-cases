@@ -59,11 +59,11 @@ ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) +
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
 
-ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)") +
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Total Covid-19 Cases") +
   #scale_y_continuous()+
-ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
 ```
 
@@ -73,12 +73,12 @@ ggtitle("Vaccination rates vs Covid-19 cases by state (per 100k)")
 
 g <- ggplot(data = head(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
-  ggtitle("5 Highest States", subtitle = "Data on Each U.S. state") +
+  ggtitle("5 Highest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
 g <- ggplot(data = tail(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
-  ggtitle("5 Lowest States", subtitle = "Data on Each U.S. state") +
+  ggtitle("5 Lowest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000))
 
@@ -89,12 +89,12 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 ```{r bar graph 2, echo = FALSE}
 g <- ggplot(data = head(rate_cases,6)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("6 Highest States", subtitle = "Data on Each U.S. state") +
+  ggtitle("6 Highest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
 g <- ggplot(data = tail(rate_cases,6)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("6 Lowest States", subtitle = "Data on Each U.S. state") +
+  ggtitle("6 Lowest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000))
 
@@ -103,5 +103,13 @@ g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Househol
 ### Vaccination Rates vs Household Income
 
 ```{r scatterplot 2, echo=FALSE}
+ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+  geom_point(mapping = aes(color = "Black")) +
+  geom_smooth() +
 
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Household Income") +
+  #scale_y_continuous()+
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 ```
