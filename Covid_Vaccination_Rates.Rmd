@@ -30,7 +30,7 @@ vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 rate_cases <- vac_base %>% 
-  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases) %>%
+  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases, Household_Income) %>%
   arrange(desc(Admin_Per_100K))
 ```
 
@@ -87,5 +87,15 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 ### Vaccination Rates vs Household Income
 
 ```{r bar graph, echo = FALSE}
+g <- ggplot(data = head(rate_cases,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Highest States", subtitle = "Data on Each U.S. state") +
+  theme(legend.position="none")
+
+g <- ggplot(data = tail(rate_cases,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest States", subtitle = "Data on Each U.S. state") +
+  theme(legend.position="none") +
+  scale_x_continuous(limits = c(0,220000))
 
 ```
