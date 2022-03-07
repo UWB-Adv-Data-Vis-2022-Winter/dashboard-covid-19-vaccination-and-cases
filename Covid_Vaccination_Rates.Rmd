@@ -30,8 +30,10 @@ vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
 rate_cases <- vac_base %>% 
-  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases, Household_Income) %>%
+  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases) %>%
   arrange(desc(Admin_Per_100K))
+rate_income <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Household_Income)
 ```
 
 ### U.S. Covid-19 Vaccination Rate of Each States
@@ -94,20 +96,22 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 ## Household Income of Each U.S. State{.tabset}
 
 ```{r casemap, echo = FALSE}
+usa_fb <- usa_sf() %>%
+  left_join(rate_cases, by = c("name" = "Location"))
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Per_Cases)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
 ```{r bar graph 2, echo = FALSE}
-g <- ggplot(data = head(rate_cases,6)) 
+g <- ggplot(data = head(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("6 Highest Income States", subtitle = "Data on Each U.S. State") +
+  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
-g <- ggplot(data = tail(rate_cases,6)) 
+g <- ggplot(data = tail(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("6 Lowest Income States", subtitle = "Data on Each U.S. State") +
+  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000))
 ```
@@ -115,7 +119,7 @@ g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Househol
 ### Vaccination Rates vs Household Income
 
 ```{r scatterplot 2, echo=FALSE}
-ggplot(data = vac_base, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
 
