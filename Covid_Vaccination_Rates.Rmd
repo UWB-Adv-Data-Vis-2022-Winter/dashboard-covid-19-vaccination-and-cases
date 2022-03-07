@@ -21,9 +21,11 @@ set.seed(1234)
 theme_set(theme_minimal())
 ```
 
-## Introduction {.tabset}
+# Introduction
 
 This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
+
+## Covid-19 Vaccination Rates VS Cases{.tabset}
 
 ```{r load data, include = FALSE}
 vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
@@ -36,7 +38,7 @@ rate_income <- vac_base %>%
   select(State_Abbreviations, Location, Admin_Per_100K, Household_Income)
 ```
 
-### U.S. Covid-19 Vaccination Rate of Each States
+### U.S. Covid-19 Vaccination Rates of Each States
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
@@ -94,7 +96,9 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 ```
 
 ## Household Income of Each U.S. State{.tabset}
+Some introduction
 
+### Household Income of Each U.S. State
 ```{r incomemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_income, by = c("name" = "Location"))
