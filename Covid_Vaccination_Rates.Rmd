@@ -67,10 +67,6 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ### Vaccination Rates vs Covid-19 Cases Rates
 
-<<<<<<< HEAD
-```{r scatterplot, echo = FALSE}
-ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
-
 ```{r scatterplot_case, echo = FALSE}
 ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) + 
 
