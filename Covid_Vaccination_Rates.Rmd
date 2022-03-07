@@ -34,6 +34,8 @@ vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 rate_cases <- vac_base %>% 
   select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases) %>%
   arrange(desc(Admin_Per_100K))
+rate_education <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Percent_High_School_Or_Higher, Percent_Bachel_Or_Higher)
 rate_income <- vac_base %>% 
   select(State_Abbreviations, Location, Admin_Per_100K, Household_Income)
 ```
