@@ -130,6 +130,8 @@ ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
   ylab("Percentage of High School Degree or Higher") +
   #scale_y_continuous()+
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
+
+ggplotly()
 ```
 
 ### The Highest 5 and the lowest 5 Educational Level States
