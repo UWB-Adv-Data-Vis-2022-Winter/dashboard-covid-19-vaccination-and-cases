@@ -51,7 +51,7 @@ ggplot(data = usa_fb) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
-### U.S. Covid-19 Cases of Each States
+### U.S. Covid-19 Cases Rates of Each States
 
 ```{r casemap, echo = FALSE}
 ggplot(data = usa_fb) +
