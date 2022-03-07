@@ -9,9 +9,8 @@ runtime: shiny
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse') ; library('modeldata') ; library('ggplot2');
-library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggplot2') ; library('ggspatial');
+library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggspatial');
 library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
-library('here')
 library('maps')
 library('albersusa')
 library('plotly')
