@@ -76,7 +76,7 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
 ```
 
-### The Highest 5 and the lowest 5 Vaccination Rates
+### The Highest 5 and the lowest 5 Vaccination Rates States
 
 ```{r bar graph, echo = FALSE}
 
@@ -117,7 +117,7 @@ ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 ```
 
-
+### The Highest 5 and the lowest 5 Household Income States
 
 ```{r bar graph 2, echo = FALSE}
 g <- ggplot(data = head(rate_income,5)) 
