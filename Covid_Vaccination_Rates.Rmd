@@ -115,6 +115,8 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Percent_Bachel_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly()
 ```
 
 ### Vaccination Rates vs Educational Level
