@@ -9,12 +9,9 @@ runtime: shiny
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library('tidyverse') ; library('modeldata') ; library('ggplot2');
-library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggspatial');
+library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggspatial');library('ggplot2'); library('here')
 library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
-library('maps')
-library('albersusa')
-library('plotly')
-library('plyr')
+library('maps'); library('albersusa'); library('plotly'); library('plyr')
 #in order to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
 
 options(digits = 3)
@@ -28,7 +25,7 @@ This R Markdown document demonstrates our abilities to use models for data analy
 
 ## Covid-19 Vaccination Rates and Cases{.tabset}
 
-```{r load data, include = FALSE}
+```{r load data}
 vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
@@ -37,7 +34,7 @@ rate_cases <- vac_base %>%
   arrange(desc(Admin_Per_100K))
 rate_education <- vac_base %>% 
   select(State_Abbreviations, Location, Admin_Per_100K, Percent_High_School_Or_Higher, Percent_Bachel_Or_Higher) %>%
-  arrange(desc(Percent_High_School_Or_Higher,Percent_Bachel_Or_Higher))
+  arrange(desc(Percent_High_School_Or_Higher), desc(Percent_Bachel_Or_Higher))
 rate_income <- vac_base %>% 
   select(State_Abbreviations, Location, Admin_Per_100K, Household_Income) %>%
   arrange(desc(Household_Income))
@@ -79,7 +76,6 @@ ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  +
 ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Total Covid-19 Cases") +
-  #scale_y_continuous()+
 ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") 
 
 ```
@@ -127,7 +123,6 @@ ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Percentage of High School Degree or Higher") +
-  #scale_y_continuous()+
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
 ```
 
@@ -175,7 +170,6 @@ ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Incom
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Household Income") +
-  #scale_y_continuous()+
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 ```
 
