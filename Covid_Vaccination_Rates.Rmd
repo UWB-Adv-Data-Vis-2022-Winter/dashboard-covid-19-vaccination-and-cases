@@ -95,7 +95,7 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 
 ## Household Income of Each U.S. State{.tabset}
 
-```{r casemap, echo = FALSE}
+```{r incomemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_income, by = c("name" = "Location"))
 ggplot(data = usa_fb) +
