@@ -119,26 +119,25 @@ ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
 
-ggtitle("Vaccination Rates vs Edducational Level by State (Per 100K)") +
+ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Percentage of High School Degree or Higher") +
   #scale_y_continuous()+
-ggtitle("Vaccination Rates vs Edducational Level by State (Per 100K)")
+ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
 ```
 
 ### The Highest 5 and the lowest 5 Educational Level States
 
 ```{r bar_graph_education, echo = FALSE}
-g <- ggplot(data = head(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
+g <- ggplot(data = head(rate_education,5)) 
+g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+  ggtitle("5 Highest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
-g <- ggplot(data = tail(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
-  theme(legend.position="none") +
-  scale_x_continuous(limits = c(0,220000))
+g <- ggplot(data = tail(rate_education,5)) 
+g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest Educational Level States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")
 ```
 
 ## Household Income of Each U.S. State{.tabset}
@@ -178,7 +177,6 @@ g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Househol
 g <- ggplot(data = tail(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
   ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
-  theme(legend.position="none") +
-  scale_x_continuous(limits = c(0,220000))
+  theme(legend.position="none")
 ```
 
