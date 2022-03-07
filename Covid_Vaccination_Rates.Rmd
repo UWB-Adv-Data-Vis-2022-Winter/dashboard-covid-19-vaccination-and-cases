@@ -165,6 +165,8 @@ usa_fb <- usa_sf() %>%
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Household_Income)) +
 scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly()
 ```
 
 ### Vaccination Rates vs Household Income
@@ -181,6 +183,8 @@ ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
   ylab("Household Income") +
   #scale_y_continuous()+
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
+
+ggplotly()
 ```
 
 ### The Highest 5 and the lowest 5 Household Income States
@@ -199,5 +203,7 @@ g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Househol
   ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100000)) 
+
+ggplotly()
 ```
 
