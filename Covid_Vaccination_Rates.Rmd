@@ -150,6 +150,9 @@ g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviati
 In this section, we analyze how the household income of each U.S. State has an impact on the vaccination rates of each U.S. State.
 
 ### Household Income of Each U.S. State
+
+This data map shows the median household income of each U.S. State.
+
 ```{r incomemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_income, by = c("name" = "Location"))
@@ -159,6 +162,8 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
 ### Vaccination Rates vs Household Income
+
+This scatter plot compares the median household income of each U.S. State with the vaccination rates of each state. The purpose is to show if the household income of a state has an affect on the vaccination rate of a state.
 
 ```{r scatterplot_income, echo=FALSE}
 ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
