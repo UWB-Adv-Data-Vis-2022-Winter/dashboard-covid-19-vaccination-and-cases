@@ -14,6 +14,8 @@ library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboa
 library('here')
 library('maps')
 library('albersusa')
+library('plotly')
+library('plyr')
 #in order to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
 
 options(digits = 3)
