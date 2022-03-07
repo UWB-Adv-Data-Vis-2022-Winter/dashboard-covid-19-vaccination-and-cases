@@ -25,7 +25,7 @@ theme_set(theme_minimal())
 
 This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
 
-## Covid-19 Vaccination Rates VS Cases{.tabset}
+## Covid-19 Vaccination Rates and Cases{.tabset}
 
 ```{r load data, include = FALSE}
 vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
@@ -93,6 +93,47 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000))
 
+```
+
+## Covid-19 Vaccination Rates and Educational Level{.tabset}
+Some introduction
+
+### Educational Level of Each U.S. State
+```{r incomemap, echo = FALSE}
+usa_fb <- usa_sf() %>%
+  left_join(rate_income, by = c("name" = "Location"))
+ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Household_Income)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+```
+
+### Vaccination Rates vs Educational Level
+
+```{r scatterplot 2, echo=FALSE}
+ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+  geom_point(mapping = aes(color = "Black")) +
+  geom_smooth() +
+
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Household Income") +
+  #scale_y_continuous()+
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
+```
+
+### The Highest 5 and the lowest 5 Educational Level States
+
+```{r bar graph 2, echo = FALSE}
+g <- ggplot(data = head(rate_income,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")
+
+g <- ggplot(data = tail(rate_income,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none") +
+  scale_x_continuous(limits = c(0,220000))
 ```
 
 ## Household Income of Each U.S. State{.tabset}
