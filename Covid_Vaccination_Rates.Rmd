@@ -115,15 +115,15 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ### Vaccination Rates vs Educational Level
 
 ```{r scatterplot_education, echo=FALSE}
-ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
 
-ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
+ggtitle("Vaccination Rates vs Edducational Level by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
-  ylab("Household Income") +
+  ylab("Percentage of High School Degree or Higher") +
   #scale_y_continuous()+
-ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
+ggtitle("Vaccination Rates vs Edducational Level by State (Per 100K)")
 ```
 
 ### The Highest 5 and the lowest 5 Educational Level States
