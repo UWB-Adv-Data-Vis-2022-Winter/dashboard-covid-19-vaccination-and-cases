@@ -67,7 +67,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ### Vaccination Rates vs Covid-19 Cases Rates
 
-```{r scatterplot, echo = FALSE}
+```{r scatterplot_case, echo = FALSE}
 ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
@@ -82,7 +82,7 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
 ### The Highest 5 and the lowest 5 Vaccination Rates States
 
-```{r bar graph, echo = FALSE}
+```{r bar_graph_vac, echo = FALSE}
 
 g <- ggplot(data = head(rate_cases,5)) 
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
@@ -114,7 +114,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ### Vaccination Rates vs Educational Level
 
-```{r scatterplot 2, echo=FALSE}
+```{r scatterplot_education, echo=FALSE}
 ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
@@ -128,7 +128,7 @@ ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 
 ### The Highest 5 and the lowest 5 Educational Level States
 
-```{r bar graph 2, echo = FALSE}
+```{r bar_graph_education, echo = FALSE}
 g <- ggplot(data = head(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
   ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
@@ -155,7 +155,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ### Vaccination Rates vs Household Income
 
-```{r scatterplot 2, echo=FALSE}
+```{r scatterplot_income, echo=FALSE}
 ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
@@ -169,7 +169,7 @@ ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 
 ### The Highest 5 and the lowest 5 Household Income States
 
-```{r bar graph 2, echo = FALSE}
+```{r bar_graph_income, echo = FALSE}
 g <- ggplot(data = head(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
   ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
