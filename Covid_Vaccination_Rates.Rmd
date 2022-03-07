@@ -38,7 +38,7 @@ rate_cases <- vac_base %>%
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
-```{r map, echo = FALSE}
+```{r ratemap, echo = FALSE}
 usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>% 
   st_read()
 usa_48 <- usa %>%
@@ -53,16 +53,9 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ### U.S. Covid-19 Cases of Each States
 
-```{r map, echo = FALSE}
-usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>% 
-  st_read()
-usa_48 <- usa %>%
-    filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
-usa_fb <- usa_sf() %>%
-  left_join(rate_cases, by = c("name" = "Location"))
-
+```{r casemap, echo = FALSE}
 ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Admin_Per_100K)) +
+  geom_sf(aes(fill = Per_Cases)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
