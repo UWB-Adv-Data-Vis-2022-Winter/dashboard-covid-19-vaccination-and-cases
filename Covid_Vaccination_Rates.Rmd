@@ -74,7 +74,7 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
 ```
 
-### Vaccination Rates of Each U.S. State 
+### The Highest 5 and the lowest 5 Vaccination Rates
 
 ```{r bar graph, echo = FALSE}
 
@@ -91,7 +91,13 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 
 ```
 
-### Household Income of Each U.S. State
+## Household Income of Each U.S. State{.tabset}
+
+```{r casemap, echo = FALSE}
+ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Per_Cases)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+```
 
 ```{r bar graph 2, echo = FALSE}
 g <- ggplot(data = head(rate_cases,6)) 
