@@ -103,19 +103,6 @@ ggplot(data = usa_fb) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
-```{r bar graph 2, echo = FALSE}
-g <- ggplot(data = head(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
-  theme(legend.position="none")
-
-g <- ggplot(data = tail(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
-  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
-  theme(legend.position="none") +
-  scale_x_continuous(limits = c(0,220000))
-```
-
 ### Vaccination Rates vs Household Income
 
 ```{r scatterplot 2, echo=FALSE}
@@ -129,3 +116,19 @@ ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
   #scale_y_continuous()+
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 ```
+
+
+
+```{r bar graph 2, echo = FALSE}
+g <- ggplot(data = head(rate_income,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")
+
+g <- ggplot(data = tail(rate_income,5)) 
+g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none") +
+  scale_x_continuous(limits = c(0,220000))
+```
+
