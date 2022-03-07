@@ -97,9 +97,9 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 
 ```{r casemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
-  left_join(rate_cases, by = c("name" = "Location"))
+  left_join(rate_income, by = c("name" = "Location"))
 ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Per_Cases)) +
+  geom_sf(aes(fill = Household_Income)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
