@@ -101,11 +101,14 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 Some introduction
 
 ### Educational Level of Each U.S. State
-```{r incomemap, echo = FALSE}
+```{r educationmap, echo = FALSE}
 usa_fb <- usa_sf() %>%
-  left_join(rate_income, by = c("name" = "Location"))
+  left_join(rate_education, by = c("name" = "Location"))
 ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Household_Income)) +
+  geom_sf(aes(fill = Percent_High_School_Or_Higher)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Percent_Bachel_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
