@@ -146,7 +146,7 @@ g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviati
 ```
 
 ## Household Income of Each U.S. State{.tabset}
-Some introduction
+In this section, we analyze how the household income of each U.S. State has an impact on the vaccination rates of each U.S. State.
 
 ### Household Income of Each U.S. State
 ```{r incomemap, echo = FALSE}
