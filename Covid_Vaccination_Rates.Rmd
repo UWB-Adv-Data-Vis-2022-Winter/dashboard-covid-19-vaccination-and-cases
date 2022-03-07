@@ -71,8 +71,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ```{r scatterplot, echo = FALSE}
 ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
 
-```{r scatterplot_case, echo = FALSE}
-ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) + 
+
 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
@@ -106,6 +105,7 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
 Some introduction
 
 ### Educational Level of Each U.S. State
+This map displays the rate of education by state.
 ```{r educationmap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_education, by = c("name" = "Location"))
@@ -118,7 +118,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ```
 
 ### Vaccination Rates vs Educational Level
-
+This scatter plot displays the total vaccination rate compared to rate of people who have a high school education or higher.
 ```{r scatterplot_education, echo=FALSE}
 ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
   geom_point(mapping = aes(color = "Black")) +
@@ -132,7 +132,7 @@ ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
 ```
 
 ### The Highest 5 and the lowest 5 Educational Level States
-
+These bar charts represents the 5 highest and lowest percentages of high school graduation by state.
 ```{r bar_graph_education, echo = FALSE}
 g <- ggplot(data = head(rate_education,5)) 
 g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
