@@ -55,7 +55,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ### Vaccination Rates vs Covid-19 Cases Rates
 
 ```{r scatterplot, echo = FALSE}
-ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases)) + 
+ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
   geom_point(mapping = aes(color = "Black")) +
   geom_smooth() +
 
@@ -63,7 +63,7 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Total Covid-19 Cases") +
   #scale_y_continuous()+
-ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") 
 
 ```
 
@@ -71,16 +71,16 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
 ```{r bar graph, echo = FALSE}
 
-g <- ggplot(data = head(rate_cases,5)) 
+g <- ggplot(data = head(rate_cases,5))
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Highest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
-g <- ggplot(data = tail(rate_cases,5)) 
+g <- ggplot(data = tail(rate_cases,5))
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
-  scale_x_continuous(limits = c(0,220000))
+  scale_x_continuous(limits = c(0,220000)) 
 
 ```
 
