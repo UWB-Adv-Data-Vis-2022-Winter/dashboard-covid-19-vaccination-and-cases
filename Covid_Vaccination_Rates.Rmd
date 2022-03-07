@@ -72,7 +72,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ```{r scatterplot, echo = FALSE}
 ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
-  geom_point(mapping = aes(color = "Black")) +
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
 
 ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
@@ -120,7 +120,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 This scatter plot displays the total vaccination rate compared to rate of people who have a high school education or higher.
 ```{r scatterplot_education, echo=FALSE}
 ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
-  geom_point(mapping = aes(color = "Black")) +
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
 
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
@@ -162,7 +162,7 @@ scale_fill_viridis_c(option = "A", direction = -1)
 
 ```{r scatterplot_income, echo=FALSE}
 ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
-  geom_point(mapping = aes(color = "Black")) +
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
 
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
