@@ -143,12 +143,15 @@ g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviati
   ggtitle("5 Highest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100)) 
+ggplotly()
 
 g <- ggplot(data = tail(rate_education,5)) 
 g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
   ggtitle("5 Lowest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100)) 
+
+ggplotly()
 ```
 
 ## Household Income of Each U.S. State{.tabset}
