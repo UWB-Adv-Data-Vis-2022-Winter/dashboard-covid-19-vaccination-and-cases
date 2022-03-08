@@ -51,38 +51,34 @@ usa_48 <- usa %>%
 usa_fb <- usa_sf() %>%
   left_join(rate_cases, by = c("name" = "Location"))
 
-ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Admin_Per_100K)) +
-scale_fill_viridis_c(option = "A", direction = -1)
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Admin_Per_100K)) + scale_fill_viridis_c(option = "A", direction = -1)
 
-ggplotly()
+ggplotly(g)
 ```
 
 ### U.S. Covid-19 Cases Rates of Each States
 
 ```{r casemap, echo = FALSE}
-ggplot(data = usa_fb) +
-  geom_sf(aes(fill = Per_Cases)) +
-scale_fill_viridis_c(option = "A", direction = -1)
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Per_Cases)) + scale_fill_viridis_c(option = "A", direction = -1)
 
-ggplotly()
+ggplotly(g)
 ```
 
 ### Vaccination Rates vs Covid-19 Cases Rates
 
 
 ```{r scatterplot, echo = FALSE}
-ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
+g <- ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
   geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
-
 ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Total Covid-19 Cases") +
-ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") 
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
 
-ggplotly()
-
+ggplotly(g)
 ```
 
 ### The Highest 5 and the lowest 5 Vaccination Rates States
@@ -90,19 +86,19 @@ ggplotly()
 ```{r bar_graph_vac, echo = FALSE}
 
 g <- ggplot(data = head(rate_cases,5))
-g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
+g <- g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Highest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
-ggplotly()
+ggplotly(g)
 
 g <- ggplot(data = tail(rate_cases,5))
-g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
+g <- g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000)) 
 
-ggplotly()
+ggplotly(g)
 
 ```
 
@@ -114,52 +110,52 @@ This map displays the rate of education by state.
 ```{r educationmap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_education, by = c("name" = "Location"))
-ggplot(data = usa_fb) +
+g <- ggplot(data = usa_fb) +
   geom_sf(aes(fill = Percent_High_School_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 
-ggplotly()
+ggplotly(g)
 
-ggplot(data = usa_fb) +
+g <- ggplot(data = usa_fb) +
   geom_sf(aes(fill = Percent_Bachel_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 
-ggplotly()
+ggplotly(g)
 ```
 
 ### Vaccination Rates vs Educational Level
 This scatter plot displays the total vaccination rate compared to rate of people who have a high school education or higher.
 ```{r scatterplot_education, echo=FALSE}
-ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
+g <- ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
   geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
-
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Percentage of High School Degree or Higher") +
 ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
 
-ggplotly()
+ggplotly(g)
+
 ```
 
 ### The Highest 5 and the lowest 5 Educational Level States
 These bar charts represents the 5 highest and lowest percentages of high school graduation by state.
 ```{r bar_graph_education, echo = FALSE}
 g <- ggplot(data = head(rate_education,5)) 
-g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+g <- g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
   ggtitle("5 Highest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100)) 
 
-ggplotly()
+ggplotly(g)
 
 g <- ggplot(data = tail(rate_education,5)) 
-g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+g <- g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
   ggtitle("5 Lowest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100)) 
 
-ggplotly()
+ggplotly(g)
 ```
 
 ## Household Income of Each U.S. State{.tabset}
@@ -173,11 +169,11 @@ This data map shows the median household income of each U.S. State.
 ```{r incomemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_income, by = c("name" = "Location"))
-ggplot(data = usa_fb) +
+g <- ggplot(data = usa_fb) +
   geom_sf(aes(fill = Household_Income)) +
 scale_fill_viridis_c(option = "A", direction = -1)
 
-ggplotly()
+ggplotly(g)
 ```
 
 ### Vaccination Rates vs Household Income
@@ -185,16 +181,15 @@ ggplotly()
 This scatter plot compares the median household income of each U.S. State with the vaccination rates of each state. The purpose is to show if the household income of a state has an affect on the vaccination rate of a state.
 
 ```{r scatterplot_income, echo=FALSE}
-ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+g <- ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
   geom_point(mapping = aes(color = Admin_Per_100K)) +
   geom_smooth() +
-
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
  xlab("Doses Administered Per 100K") +
   ylab("Household Income") +
 ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
 
-ggplotly()
+ggplotly(g)
 ```
 
 ### The Highest 5 and the lowest 5 Household Income States
@@ -203,19 +198,19 @@ Based on the median household income of each U.S. state, these bar graphs show t
 
 ```{r bar_graph_income, echo = FALSE}
 g <- ggplot(data = head(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+g <- g+ geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
   ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100000)) 
 
-ggplotly()
+ggplotly(g)
 
 g <- ggplot(data = tail(rate_income,5)) 
-g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+g <- g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
   ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100000)) 
 
-ggplotly()
+ggplotly(g)
 ```
 
