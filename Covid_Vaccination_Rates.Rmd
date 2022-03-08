@@ -45,8 +45,7 @@ rate_income <- vac_base %>%
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
 
 ```{r ratemap, echo = FALSE}
-usa <- here("cb_2018_us_state_20m", "cb_2018_us_state_20m.shp") %>% 
-  st_read()
+usa <- st_read("cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
 usa_48 <- usa %>%
     filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
 usa_fb <- usa_sf() %>%
@@ -55,6 +54,8 @@ usa_fb <- usa_sf() %>%
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Admin_Per_100K)) +
 scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly()
 ```
 
 ### U.S. Covid-19 Cases Rates of Each States
@@ -63,6 +64,8 @@ scale_fill_viridis_c(option = "A", direction = -1)
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Per_Cases)) +
 scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly()
 ```
 
 ### Vaccination Rates vs Covid-19 Cases Rates
@@ -78,6 +81,8 @@ ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
   ylab("Total Covid-19 Cases") +
 ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") 
 
+ggplotly()
+
 ```
 
 ### The Highest 5 and the lowest 5 Vaccination Rates States
@@ -89,11 +94,15 @@ g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_
   ggtitle("5 Highest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")
 
+ggplotly()
+
 g <- ggplot(data = tail(rate_cases,5))
 g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
   ggtitle("5 Lowest States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none") +
   scale_x_continuous(limits = c(0,220000)) 
+
+ggplotly()
 
 ```
 
@@ -108,6 +117,9 @@ usa_fb <- usa_sf() %>%
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Percent_High_School_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly()
+
 ggplot(data = usa_fb) +
   geom_sf(aes(fill = Percent_Bachel_Or_Higher)) +
 scale_fill_viridis_c(option = "A", direction = -1)
@@ -138,6 +150,7 @@ g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviati
   ggtitle("5 Highest Educational Level States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100)) 
+
 ggplotly()
 
 g <- ggplot(data = tail(rate_education,5)) 
@@ -194,6 +207,8 @@ g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Househol
   ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
   theme(legend.position="none")+
   scale_x_continuous(limits = c(0,100000)) 
+
+ggplotly()
 
 g <- ggplot(data = tail(rate_income,5)) 
 g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
