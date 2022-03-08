@@ -2,7 +2,11 @@
 title: "Covid-19 Cases and Vaccination Rates"
 author: "Kongtao Chen, Eric Shin, Laith Darwish"
 date: "2/16/2022"
-output: html_document
+output: 
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    df_print: paged
 runtime: shiny
 ---
 
