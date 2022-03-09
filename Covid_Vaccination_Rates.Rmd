@@ -116,7 +116,7 @@ ggplotly(g)
 This section analyzes the rate of Covid-19 vaccination versus the education level in individual states. It also examines total education rates in each state.
 
 ### Educational Level of Each U.S. State
-This map displays the rate of education by state.
+These maps display both the percentage of people who have a high school education or higher and a bachelor's degree or higher.
 ```{r educationmap, echo = FALSE}
 usa_fb <- usa_sf() %>%
   left_join(rate_education, by = c("name" = "Location"))
