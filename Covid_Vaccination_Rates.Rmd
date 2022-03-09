@@ -113,7 +113,7 @@ ggplotly(g)
 ```
 
 ## Covid-19 Vaccination Rates and Educational Level{.tabset}
-Some introduction
+This section looks at the Covid-19 vaccination rate compared to different educational rates in U.S. states.
 
 ### Educational Level of Each U.S. State
 This map displays the rate of education by state.
