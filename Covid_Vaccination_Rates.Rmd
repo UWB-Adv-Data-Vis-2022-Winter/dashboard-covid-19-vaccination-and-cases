@@ -30,7 +30,7 @@ This R Markdown document demonstrates our abilities to use models for data analy
 ## Covid-19 Vaccination Rates and Cases{.tabset}
 
 In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
-```{r load data}
+```{r load data, echo=FALSE, message=FALSE}
 vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
 #vac_rates <- vac_base$Admin_Per_100K
 #vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
@@ -49,7 +49,7 @@ rate_income <- vac_base %>%
 
 In this map, we shows the Covid-19 vaccination rates of each states, and weight the color by using the Admin_Per_100K value. Amdin_Per_100K value shows the total number of doses administered per 100,000 census population based on the jurisdiction where recipient lives.
 
-```{r ratemap, echo = FALSE}
+```{r ratemap, echo = FALSE, message=FALSE}
 usa <- st_read("cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
 usa_48 <- usa %>%
     filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
@@ -66,7 +66,7 @@ ggplotly(g)
 
 In this map, we shows the Covid-19 cases rates of each states, and weight the color by using the Per_Cases value. Per_Cases value shows Shows the state's confirmed cases as a percentage of the state's total population.
 
-```{r casemap, echo = FALSE}
+```{r casemap, echo = FALSE, message=FALSE}
 g <- ggplot(data = usa_fb) +
   geom_sf(aes(fill = Per_Cases)) + scale_fill_viridis_c(option = "A", direction = -1)
 
