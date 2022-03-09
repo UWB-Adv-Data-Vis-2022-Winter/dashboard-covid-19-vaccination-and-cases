@@ -75,6 +75,7 @@ ggplotly(g)
 
 ### Vaccination Rates vs Covid-19 Cases Rates
 
+In this scatter plot, we shows the relationship between the vaccination rates and cases rates of each states, and weight the color by the the Admin_Per_100K. We can see from the graph that the vaccination rates and the cases rates of each states are likely to be in a linear relationship, which means for most of the states, states with a smaller proportion of confirmed cases of the population generally have a higher proportion of vaccination rates.
 
 ```{r scatterplot, echo = FALSE}
 g <- ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
