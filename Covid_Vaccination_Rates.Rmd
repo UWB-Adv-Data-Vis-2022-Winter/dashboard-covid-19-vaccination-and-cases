@@ -64,6 +64,8 @@ ggplotly(g)
 
 ### U.S. Covid-19 Cases Rates of Each States
 
+In this map, we shows the Covid-19 cases rates of each states, and weight the color by using the Per_Cases value. Per_Cases value shows Shows the state's confirmed cases as a percentage of the state's total population.
+
 ```{r casemap, echo = FALSE}
 g <- ggplot(data = usa_fb) +
   geom_sf(aes(fill = Per_Cases)) + scale_fill_viridis_c(option = "A", direction = -1)
