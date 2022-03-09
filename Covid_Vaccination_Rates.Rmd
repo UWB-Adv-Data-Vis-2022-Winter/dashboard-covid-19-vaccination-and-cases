@@ -91,6 +91,8 @@ ggplotly(g)
 
 ### The Highest 5 and the lowest 5 Vaccination Rates States
 
+In these two bar graphs, we shows the 5 states who have the highest vaccination rates, and 5 states who have the lowest vaccination rates.From these two graphs, we can see that the disparity in vaccination rates from state to state is still very large. Which means we need to make more efforts in states with low vaccination rates to increase vaccination rates across the country so that we can better respond to the outbreak.
+
 ```{r bar_graph_vac, echo = FALSE}
 
 g <- ggplot(data = head(rate_cases,5))
