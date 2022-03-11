@@ -174,7 +174,7 @@ In this section, we analyze how the median household income of each U.S. State h
 
 ### Household Income of Each U.S. State
 
-This data map shows the median household income of each U.S. State.
+In this map, we shows the median household income of each states, and weight the color by using the Household_Income value.
 
 ```{r incomemap, echo = FALSE}
 usa_fb <- usa_sf() %>%
