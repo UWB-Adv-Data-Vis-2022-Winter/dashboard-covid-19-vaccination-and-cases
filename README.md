@@ -30,3 +30,6 @@ The dataset contains different graphic and mapping depictions to display differe
 
 # Expected Outcomes
 We look forward to comparing different data to find possible reasons for the high and low vaccination rates in each state. For example, whether there is a large gap in the proportion of vaccinations among different age groups? If so, which age group is more inclined to not be vaccinated. Or, do the different daily cases by state affect vaccination rates? If so, are the states with high daily cases high on the vaccination rates, or are the states with low daily cases high on the vaccination rates? In addition, we can also compare the state's vaccination rate with the state's education level or average income to find the relationship between these data. The ultimate goal is to find any factors that may affect vaccination rates to help state medical institutions better plan to achieve higher vaccination rates across the United States.
+
+# Creative Commons license
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
