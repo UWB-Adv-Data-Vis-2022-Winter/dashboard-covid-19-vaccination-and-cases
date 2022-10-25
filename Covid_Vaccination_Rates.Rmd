@@ -1,0 +1,241 @@
+---
+title: "Covid-19 Cases and Vaccination Rates"
+author: "Kongtao Chen, Eric Shin, Laith Darwish"
+date: "2/16/2022"
+output:
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    df_print: paged
+runtime: shiny
+resource_files:
+- Dashboard.Rproj
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library('tidyverse') ; library('modeldata') ; library('ggplot2');
+library('jsonlite') ; library('rgdal') ; library('sf'); library('extrafont') ; library('ggspatial');library('ggplot2'); library('here')
+library('patchwork') ; library('scico') ; library('dplyr'); library('flexdashboard');
+library('maps'); library('albersusa'); library('plotly'); library('plyr')
+#in order to use the albersusa, you need to install the "remotes" package frist, and run this line of code remotes::install_github("hrbrmstr/albersusa")
+
+options(digits = 3)
+set.seed(1234)
+theme_set(theme_minimal())
+```
+
+# Introduction
+
+This R Markdown document demonstrates our abilities to use models for data analysis using a data set collected on Covid-19 vaccination rates, cases, and some data related to them.
+
+## Covid-19 Vaccination Rates and Cases{.tabset}
+
+In this report, we examine the relationship between vaccine coverage and confirmed cases in US states. And further compare the vaccine coverage rate and the education level or average income of each state to try to figure out the reasons that may affect the vaccine coverage rate.
+```{r load data, echo=FALSE, message=FALSE}
+vac_base <- read.csv("Vaccination_Base.csv", row.names=NULL)
+#vac_rates <- vac_base$Admin_Per_100K
+#vac_rates <- cbind(vac_base$Location, vac_base$Admin_Per_100K)
+rate_cases <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Per_Cases) %>%
+  arrange(desc(Admin_Per_100K))
+rate_education <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Percent_High_School_Or_Higher, Percent_Bachel_Or_Higher) %>%
+  arrange(desc(Percent_High_School_Or_Higher), desc(Percent_Bachel_Or_Higher))
+rate_income <- vac_base %>% 
+  select(State_Abbreviations, Location, Admin_Per_100K, Household_Income) %>%
+  arrange(desc(Household_Income))
+```
+
+### U.S. Covid-19 Vaccination Rates of Each States
+
+In this map, we shows the Covid-19 vaccination rates of each states, and weight the color by using the Admin_Per_100K value. Amdin_Per_100K value shows the total number of doses administered per 100,000 census population based on the jurisdiction where recipient lives.
+
+```{r ratemap, echo = FALSE, message=FALSE}
+usa <- st_read("cb_2018_us_state_20m/cb_2018_us_state_20m.shp")
+usa_48 <- usa %>%
+    filter(!(NAME %in% c("Alaska", "District of Columbia", "Hawaii", "Puerto Rico")))
+usa_fb <- usa_sf() %>%
+  left_join(rate_cases, by = c("name" = "Location"))
+
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Admin_Per_100K)) + scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly(g)
+```
+
+### U.S. Covid-19 Cases Rates of Each States
+
+In this map, we shows the Covid-19 cases rates of each states, and weight the color by using the Per_Cases value. Per_Cases value shows Shows the state's confirmed cases as a percentage of the state's total population.
+
+```{r casemap, echo = FALSE, message=FALSE}
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Per_Cases)) + scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly(g)
+```
+
+### Vaccination Rates vs Covid-19 Cases Rates
+
+In this scatter plot, we shows the relationship between the vaccination rates and cases rates of each states, and weight the color by the the Admin_Per_100K. We can see from the graph that the vaccination rates and the cases rates of each states are likely to be in a linear relationship, which means for most of the states, states with a smaller proportion of confirmed cases of the population generally have a higher proportion of vaccination rates.
+
+```{r scatterplot, echo = FALSE}
+g <- ggplot(data = rate_cases, mapping = aes(x = Admin_Per_100K, y = Per_Cases))  + 
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
+  geom_smooth() +
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Total Covid-19 Cases") +
+ggtitle("Vaccination rates vs Covid-19 Cases by State (Per 100K)")
+
+ggplotly(g)
+```
+
+### The Highest 5 and the lowest 5 Vaccination Rates States
+
+In these two bar graphs, we shows the 5 states who have the highest vaccination rates, and 5 states who have the lowest vaccination rates.From these two graphs, we can see that the disparity in vaccination rates from state to state is still very large. Which means we need to make more efforts in states with low vaccination rates to increase vaccination rates across the country so that we can better respond to the outbreak.
+
+```{r bar_graph_vac, echo = FALSE}
+
+g <- ggplot(data = head(rate_cases,5))
+g <- g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
+  ggtitle("5 Highest States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")
+
+ggplotly(g)
+
+g <- ggplot(data = tail(rate_cases,5))
+g <- g + geom_col(aes(x = Admin_Per_100K, y = reorder(State_Abbreviations, Admin_Per_100K), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none") +
+  scale_x_continuous(limits = c(0,220000)) 
+
+ggplotly(g)
+
+```
+
+## Covid-19 Vaccination Rates and Educational Level{.tabset}
+This section analyzes the rate of Covid-19 vaccination versus the education level in individual states. It also examines total education rates in each state.
+
+### Educational Level of Each U.S. State
+These maps display both the percentage of people who have a high school education or higher and a bachelor's degree or higher.
+```{r educationmap, echo = FALSE}
+usa_fb <- usa_sf() %>%
+  left_join(rate_education, by = c("name" = "Location"))
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Percent_High_School_Or_Higher)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly(g)
+
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Percent_Bachel_Or_Higher)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly(g)
+```
+
+### Vaccination Rates vs Educational Level
+This scatter plot displays the total vaccination rate compared to rate of people who have a high school education or higher.
+```{r scatterplot_education, echo=FALSE}
+g <- ggplot(data = rate_education, mapping = aes(x = Admin_Per_100K, y = Percent_High_School_Or_Higher)) + 
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
+  geom_smooth() +
+ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Percentage of High School Degree or Higher") +
+ggtitle("Vaccination Rates vs Educational Level by State (Per 100K)")
+
+ggplotly(g)
+
+```
+
+### The Highest 5 and the lowest 5 Educational Level States
+These bar charts represents the 5 highest and lowest percentages of high school graduation by state.
+```{r bar_graph_education, echo = FALSE}
+g <- ggplot(data = head(rate_education,5)) 
+g <- g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+  ggtitle("5 Highest Educational Level States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")+
+  scale_x_continuous(limits = c(0,100)) 
+
+ggplotly(g)
+
+g <- ggplot(data = tail(rate_education,5)) 
+g <- g + geom_col(aes(x = Percent_High_School_Or_Higher, y = reorder(State_Abbreviations, Percent_High_School_Or_Higher), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest Educational Level States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")+
+  scale_x_continuous(limits = c(0,100)) 
+
+ggplotly(g)
+```
+
+## Household Income of Each U.S. State{.tabset}
+
+In this section, we analyze how the median household income of each U.S. State has an impact on the vaccination rates of each U.S. State.
+
+### Household Income of Each U.S. State
+
+In this map, we shows the median household income of each states, and weight the color by using the Household_Income value.
+
+```{r incomemap, echo = FALSE}
+usa_fb <- usa_sf() %>%
+  left_join(rate_income, by = c("name" = "Location"))
+g <- ggplot(data = usa_fb) +
+  geom_sf(aes(fill = Household_Income)) +
+scale_fill_viridis_c(option = "A", direction = -1)
+
+ggplotly(g)
+```
+
+### Vaccination Rates vs Household Income
+
+This scatter plot compares the median household income of each U.S. State with the vaccination rates of each state. The purpose is to show if the household income of a state has an affect on the vaccination rate of a state.
+
+```{r scatterplot_income, echo=FALSE}
+g <- ggplot(data = rate_income, mapping = aes(x = Admin_Per_100K, y = Household_Income)) + 
+  geom_point(mapping = aes(color = Admin_Per_100K)) +
+  geom_smooth() +
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)") +
+ xlab("Doses Administered Per 100K") +
+  ylab("Household Income") +
+ggtitle("Vaccination Rates vs Household Income by State (Per 100K)")
+
+ggplotly(g)
+```
+
+### The Highest 5 and the lowest 5 Household Income States
+
+Based on the median household income of each U.S. state, these bar graphs show the 5 highest and 5 lowest household income states.
+
+```{r bar_graph_income, echo = FALSE}
+g <- ggplot(data = head(rate_income,5)) 
+g <- g+ geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Highest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")+
+  scale_x_continuous(limits = c(0,100000)) 
+
+ggplotly(g)
+
+g <- ggplot(data = tail(rate_income,5)) 
+g <- g + geom_col(aes(x = Household_Income, y = reorder(State_Abbreviations, Household_Income), fill = State_Abbreviations )) +
+  ggtitle("5 Lowest Income States", subtitle = "Data on Each U.S. State") +
+  theme(legend.position="none")+
+  scale_x_continuous(limits = c(0,100000)) 
+
+ggplotly(g)
+```
+
+# About
+## Data Biography
+This data set is collected by the CDC through cooperation with the US Public Health Surveillance System and the US state medical systems to collect specific data on Covid vaccination rates in each state of the country. According to the website, this data source “represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.”(Centers for Disease Control and Prevention [CDC], 2021) This dataset collects the proportion of people who were vaccinated more than one dose, were fully vaccinated, and were vaccinated with booster doses in every age group in each state in the United States. In addition, the data set also collects different attitudes and experiences of Covid vaccination by age group in various states of the United States, and daily cases by state in the U.S. CDC conducts a complete analysis and estimation of the data as a whole by collecting and integrating the data collected from various state organizations.
+
+After collecting data, CDC uses interactive maps, trend lines, bar charts and data tables to monitor COVID-19 vaccination rates and confidence in vaccination in adults and children, which help CDC itself assess the extent of local, state and national protection against vaccine-preventable diseases and improve how the United States responds to the greatest public health threat (CDC, 2021). This data source can strengthen the U.S. basic surveillance system, build data science capabilities, and enhance public health workforce programs to help the U.S. better respond to the outbreak.
+  
+However, vaccination data from this data source typically has a lag time from the vaccination data displayed on the state website due to different lag times in each state (CDC, 2021). Not only that, because CDC does not receive personally identifiable information about vaccine doses, a person's first, second, and booster doses cannot be linked together, leading to an overestimation of the first dose and underestimation of subsequent doses during the analysis (CDC, 2021). 
+	
+This data source provides options to view footnotes and download the data table, which you can click the "View Historic Vaccination Data", "Data Table for COVID-19 Vaccinations in the United States", and "Footnotes" button at the bottom of the website to view and download the related data information. In order to know more about the Covid data, you can click the “Dialysis Vaccination Data Dashboard”, “Nursing Home Vaccination Data Dashboard”, and “Want to know more about trends in COVID-19 US vaccinations?” button to find out more information you need, or find the tab you are interested in in the list on the left side of the page (CDC, 2021).
+  
+Another dataset we have considered using is titled “COVID-19 State Profile Report – Washington.” This dataset overviews the Covid-19 statistics in Washington including vaccination rates among various age groups, hospitalization rates, deaths, and case numbers. This data is updated weekly. This Covid-19 data is also compared to the rest of the United States (White House COVID-19 Team, 2021). 
+  
+The dataset contains different graphic and mapping depictions to display different Covid-19 data. This data is represented down to a county level (White House COVID-19 Team, 2021).
